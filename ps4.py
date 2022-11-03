@@ -189,7 +189,15 @@ class Patient(object):
         Returns:
             int: The total bacteria population at the end of the update
         """
-        pass  # TODO
+        # TODO
+        #1.
+        surviving_bacteria = []
+        for bacteria in self.bacteria:
+            if not bacteria.is_killed():
+                surviving_bacteria.append(bacteria)
+        #2.
+        population_density = len(surviving_bacteria) / self.max_pop
+
 
 
 ##########################
