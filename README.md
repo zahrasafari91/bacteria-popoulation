@@ -1,1 +1,1 @@
-# bacteria-popoulation-mit
+# bacteria-popoulation
