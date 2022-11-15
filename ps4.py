@@ -190,14 +190,25 @@ class Patient(object):
             int: The total bacteria population at the end of the update
         """
         # TODO
-        #1.
+        # 1.
         surviving_bacteria = []
         for bacteria in self.bacteria:
             if not bacteria.is_killed():
                 surviving_bacteria.append(bacteria)
-        #2.
+        # 2.
         population_density = len(surviving_bacteria) / self.max_pop
 
+        # 3.
+        for i in range(len(surviving_bacteria)):
+            try:
+                new_bacteria = self.bacteria[i].reproduce(population_density)
+                surviving_bacteria.append(new_bacteria)
+            except NoChildException:
+                continue
+        # 4.
+        self.bacteria = surviving_bacteria + new_bacteria
+
+        return self.get_total_pop()
 
 
 ##########################
@@ -215,7 +226,11 @@ def calc_pop_avg(populations, n):
     Returns:
         float: The average bacteria population size at time step n
     """
-    pass  # TODO
+    # TODO
+    total = 0
+    for i in range(len(populations)):
+        total += populations[i][n]
+    return total/len(populations)
 
 
 def simulation_without_antibiotic(num_bacteria,
@@ -282,7 +297,8 @@ def calc_pop_std(populations, t):
         float: the standard deviation of populations across different trials at
              a specific time step
     """
-    pass  # TODO
+    # TODO
+    
 
 
 def calc_95_ci(populations, t):
